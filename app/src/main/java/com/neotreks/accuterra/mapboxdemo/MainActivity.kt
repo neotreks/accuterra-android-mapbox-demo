@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val addTrailsProgressIndicator: CircularProgressIndicator by lazy { findViewById(R.id.add_trails_progress_indicator) }
     private val removeTrailsButton: MaterialButton by lazy { findViewById(R.id.remove_trails_button) }
 
+    private var firstSdkInitDialog: FirstSdkInitDialog? = null
     private var trailPathsManager: TrailPathsManager? = null
 
 
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initEdgeToEdgeMapInsets()
         initButtons()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        removeFirstSdkInitDialog()
     }
 
     private fun initEdgeToEdgeMapInsets() {
@@ -96,6 +102,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSdkAsync() {
+        showFirstSdkInitDialog()
         sdkInitProgressIndicator.visibility = View.VISIBLE
         initSdkButton.isEnabled = false
 
@@ -113,7 +120,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             sdkInitProgressIndicator.visibility = View.GONE
+            removeFirstSdkInitDialog()
         }
+    }
+
+    private fun showFirstSdkInitDialog() {
+        firstSdkInitDialog = FirstSdkInitDialog(this)
+            .also { dialog ->
+                dialog.show()
+            }
+    }
+
+    private fun removeFirstSdkInitDialog() {
+        firstSdkInitDialog?.dismiss()
+        firstSdkInitDialog = null
     }
 
     private fun onSdkInitSuccess() {
