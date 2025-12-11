@@ -16,4 +16,20 @@
         app:mapbox_cameraZoom="8"
         app:mapbox_scaleBarGravity="bottom|end"/>
 
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/initialize_sdk_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/initialize_sdk" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
