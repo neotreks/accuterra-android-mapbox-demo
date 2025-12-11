@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     private val mapView: MapView by lazy { findViewById(R.id.mapView) }
     private val buttonsContainer: ViewGroup by lazy { findViewById(R.id.buttons_container) }
     private val initSdkButton: MaterialButton by lazy { findViewById(R.id.initialize_sdk_button) }
+    private val addTrailsButton: MaterialButton by lazy { findViewById(R.id.add_trails_button) }
+    private val removeTrailsButton: MaterialButton by lazy { findViewById(R.id.remove_trails_button) }
+
+    private var trailPathsManager: TrailPathsManager? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +81,14 @@ class MainActivity : AppCompatActivity() {
         initSdkButton.setOnClickListener {
             initSdkAsync()
         }
+
+        addTrailsButton.setOnClickListener {
+            addTrailsAsync()
+        }
+
+        removeTrailsButton.setOnClickListener {
+            removeTrails()
+        }
     }
 
     private fun initSdkAsync() {
@@ -100,10 +112,42 @@ class MainActivity : AppCompatActivity() {
     private fun onSdkInitSuccess() {
         Log.i(TAG, "AccuTerra SDK is ready")
         Toast.makeText(this, "SDK Initialized", Toast.LENGTH_SHORT).show()
+
+        addTrailsButton.isEnabled = true
     }
 
     private fun onSdkInitFailure(error: Throwable) {
         Log.e(TAG, "AccuTerra SDK Initialization Error", error)
         Toast.makeText(this, "SDK Initialization Error", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addTrailsAsync() {
+        addTrailsButton.isEnabled = false
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            val mapCenter = mapView.mapboxMap.cameraState.center
+            val trails = SimpleTrailsSearch(applicationContext)
+                .findTrailsByCenter(
+                    mapCenter.latitude(),
+                    mapCenter.longitude(),
+                    100_000 // 100 km
+                )
+
+            trailPathsManager = TrailPathsManager(mapView).also { trailPathsManager ->
+                trailPathsManager.addToMap()
+                trailPathsManager.showTrailsFromFeatures(trails)
+            }
+
+            removeTrailsButton.isEnabled = true
+        }
+    }
+
+    private fun removeTrails() {
+        removeTrailsButton.isEnabled = false
+
+        trailPathsManager?.removeFromMap()
+        trailPathsManager = null
+
+        addTrailsButton.isEnabled = true
     }
 }
