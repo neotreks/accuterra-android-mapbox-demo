@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initEdgeToEdgeMapInsets()
         initButtons()
+
+        loadAccuTerraMapStyle()
     }
 
     override fun onStop() {
@@ -69,10 +72,6 @@ class MainActivity : AppCompatActivity() {
                     .build()
             )
 
-            // Set style to custom URL
-            mapView.mapboxMap.loadStyle("${BuildConfig.ACCUTERRA_MAP_STYLE_URL}?key=${BuildConfig.ACCUTERRA_MAP_KEY}")
-
-
             // Adjust the margins for the scalebar
             mapView.scalebar.marginBottom = systemInsets.bottom.toFloat()
             mapView.scalebar.marginRight = (systemInsets.bottom + systemInsets.right).toFloat()
@@ -81,6 +80,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+    }
+
+    private fun loadAccuTerraMapStyle() {
+        val styleUrl = BuildConfig.ACCUTERRA_MAP_STYLE_URL.toUri().buildUpon()
+            .appendQueryParameter("key", BuildConfig.ACCUTERRA_MAP_KEY)
+            .toString()
+
+        // Set style to custom URL
+        mapView.mapboxMap.loadStyle(styleUrl)
     }
 
     private fun initButtons() {
