@@ -2,6 +2,7 @@ package com.neotreks.accuterra.mapboxdemo
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.mapbox.maps.EdgeInsets
 import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.scalebar.scalebar
@@ -25,7 +27,9 @@ class MainActivity : AppCompatActivity() {
     private val mapView: MapView by lazy { findViewById(R.id.mapView) }
     private val buttonsContainer: ViewGroup by lazy { findViewById(R.id.buttons_container) }
     private val initSdkButton: MaterialButton by lazy { findViewById(R.id.initialize_sdk_button) }
+    private val sdkInitProgressIndicator: CircularProgressIndicator by lazy { findViewById(R.id.sdk_init_progress_indicator) }
     private val addTrailsButton: MaterialButton by lazy { findViewById(R.id.add_trails_button) }
+    private val addTrailsProgressIndicator: CircularProgressIndicator by lazy { findViewById(R.id.add_trails_progress_indicator) }
     private val removeTrailsButton: MaterialButton by lazy { findViewById(R.id.remove_trails_button) }
 
     private var trailPathsManager: TrailPathsManager? = null
@@ -92,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSdkAsync() {
+        sdkInitProgressIndicator.visibility = View.VISIBLE
         initSdkButton.isEnabled = false
 
         lifecycleScope.launch(Dispatchers.Main) {
@@ -106,6 +111,8 @@ class MainActivity : AppCompatActivity() {
                     sdkInitResult.error ?: RuntimeException("Unknown SDK init error")
                 )
             }
+
+            sdkInitProgressIndicator.visibility = View.GONE
         }
     }
 
@@ -122,6 +129,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addTrailsAsync() {
+        addTrailsProgressIndicator.visibility = View.VISIBLE
         addTrailsButton.isEnabled = false
 
         lifecycleScope.launch(Dispatchers.Main) {
@@ -139,6 +147,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             removeTrailsButton.isEnabled = true
+            addTrailsProgressIndicator.visibility = View.GONE
         }
     }
 
