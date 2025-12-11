@@ -22,6 +22,8 @@ android {
         val wsAuthUrl: String? = null // TODO: Set your AccuTerra WS auth URL
         val wsAuthClientId: String? = null // TODO: Set your AccuTerra WS auth client ID
         val wsAuthClientSecret: String? = null // TODO: Set your AccuTerra WS auth client secret
+        val accuTerraMapKey: String? = null // TODO: Set your AccuTerra Map Key
+        val accuTerraMapStyleUrl: String? = null // TODO: Set your AccuTerra Map Style URL
         val mapboxToken: String? = null // TODO: Set your Mapbox access token
 
         fun validateAndEncode(value: String?, errorMessage: () -> String) : String {
@@ -43,6 +45,12 @@ android {
         )
         buildConfigField("String", "WS_AUTH_CLIENT_SECRET",
             validateAndEncode(wsAuthClientSecret) { "Set your AccuTerra WS auth client secret" }
+        )
+        buildConfigField("String", "ACCUTERRA_MAP_STYLE_URL",
+            validateAndEncode(accuTerraMapStyleUrl) { "Set your AccuTerra Map Style URL" }
+        )
+        buildConfigField("String", "ACCUTERRA_MAP_KEY",
+            validateAndEncode(accuTerraMapKey) { "Set your AccuTerra Map Key" }
         )
         buildConfigField("String", "MAPBOX_TOKEN",
             validateAndEncode(mapboxToken) { "Set your Mapbox access token" }

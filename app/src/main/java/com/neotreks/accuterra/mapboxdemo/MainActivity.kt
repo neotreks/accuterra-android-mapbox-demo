@@ -69,6 +69,10 @@ class MainActivity : AppCompatActivity() {
                     .build()
             )
 
+            // Set style to custom URL
+            mapView.mapboxMap.loadStyle("${BuildConfig.ACCUTERRA_MAP_STYLE_URL}?key=${BuildConfig.ACCUTERRA_MAP_KEY}")
+
+
             // Adjust the margins for the scalebar
             mapView.scalebar.marginBottom = systemInsets.bottom.toFloat()
             mapView.scalebar.marginRight = (systemInsets.bottom + systemInsets.right).toFloat()
