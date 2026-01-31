@@ -80,7 +80,6 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.mapbox.android.sdk)
-    implementation(libs.accuterra.android.sdk)
     implementation(libs.accuterra.android.sdk.core)
 
     testImplementation(libs.junit)
