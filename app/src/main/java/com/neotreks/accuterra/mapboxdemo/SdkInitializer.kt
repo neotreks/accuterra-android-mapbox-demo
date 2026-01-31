@@ -18,7 +18,8 @@ class SdkInitializer {
             config = config,
             accessProvider = accessProvider,
             identityProvider = userIdentityProvider,
-            listener = initListener
+            listener = initListener,
+            mapProvider = null
         )
     }
 }

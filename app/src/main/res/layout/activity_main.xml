@@ -76,6 +76,13 @@
             android:enabled="false"
             android:text="@string/remove_trails" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/set_accuterra_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/set_accuterra_style" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

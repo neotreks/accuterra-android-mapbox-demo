@@ -46,9 +46,6 @@ android {
         buildConfigField("String", "WS_AUTH_CLIENT_SECRET",
             validateAndEncode(wsAuthClientSecret) { "Set your AccuTerra WS auth client secret" }
         )
-        buildConfigField("String", "ACCUTERRA_MAP_STYLE_URL",
-            validateAndEncode(accuTerraMapStyleUrl) { "Set your AccuTerra Map Style URL" }
-        )
         buildConfigField("String", "ACCUTERRA_MAP_KEY",
             validateAndEncode(accuTerraMapKey) { "Set your AccuTerra Map Key" }
         )
@@ -84,6 +81,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.mapbox.android.sdk)
     implementation(libs.accuterra.android.sdk)
+    implementation(libs.accuterra.android.sdk.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

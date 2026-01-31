@@ -17,9 +17,7 @@ internal class DemoAppSdkConfigBuilder {
     private var mapConfig = MapConfig(
         // Providing null value will load map token and style url from backend
         accuTerraMapConfig = null,
-        imageryMapConfig = ImageryMapConfig(
-            styleUrl = ImageryMapConfig.MAPBOX_SATELLITE.styleUrl
-        ),
+        imageryMapConfig = null,
 
     )
 

@@ -1,11 +1,11 @@
 package com.neotreks.accuterra.mapboxdemo
 
 import android.app.Application
+import com.mapbox.common.MapboxOptions
 
 class DemoApp : Application() {
     override fun onCreate() {
         super.onCreate()
-
-        MapLibreInitializer().init(this)
+        MapboxOptions.accessToken = BuildConfig.MAPBOX_TOKEN
     }
 }
