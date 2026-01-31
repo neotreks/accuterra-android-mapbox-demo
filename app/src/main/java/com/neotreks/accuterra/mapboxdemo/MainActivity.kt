@@ -17,6 +17,7 @@ import com.mapbox.maps.EdgeInsets
 import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.toCameraOptions
+import com.neotreks.accuterra.mobile.sdk.SdkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val addTrailsButton: MaterialButton by lazy { findViewById(R.id.add_trails_button) }
     private val addTrailsProgressIndicator: CircularProgressIndicator by lazy { findViewById(R.id.add_trails_progress_indicator) }
     private val removeTrailsButton: MaterialButton by lazy { findViewById(R.id.remove_trails_button) }
+    private val setAccuTerraStyleButton: MaterialButton by lazy { findViewById(R.id.set_accuterra_style) }
 
     private var firstSdkInitDialog: FirstSdkInitDialog? = null
     private var trailPathsManager: TrailPathsManager? = null
@@ -44,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initEdgeToEdgeMapInsets()
         initButtons()
-
-        loadAccuTerraMapStyle()
     }
 
     override fun onStop() {
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadAccuTerraMapStyle() {
-        val styleUrl = BuildConfig.ACCUTERRA_MAP_STYLE_URL.toUri().buildUpon()
+        val styleUrl = SdkManager.getAccuterraMapStyleUrl().toUri().buildUpon()
             .appendQueryParameter("key", BuildConfig.ACCUTERRA_MAP_KEY)
             .toString()
 
@@ -110,6 +110,10 @@ class MainActivity : AppCompatActivity() {
 
         removeTrailsButton.setOnClickListener {
             removeTrails()
+        }
+
+        setAccuTerraStyleButton.setOnClickListener {
+            loadAccuTerraMapStyle()
         }
     }
 
@@ -153,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "SDK Initialized", Toast.LENGTH_SHORT).show()
 
         addTrailsButton.isEnabled = true
+        setAccuTerraStyleButton.isEnabled = true
     }
 
     private fun onSdkInitFailure(error: Throwable) {

@@ -11,7 +11,7 @@ material = "1.13.0"
 activity = "1.12.0"
 constraintlayout = "2.2.1"
 mapbox = "11.17.0"
-accuterra = "0.30.2"
+accuterra = "0.40.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +25,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 mapbox-android-sdk = { group = "com.mapbox.maps", name = "android-ndk27", version.ref = "mapbox" }
 accuterra-android-sdk = { group = "com.accuterra", name = "accuterra-android-sdk", version.ref = "accuterra"}
+accuterra-android-sdk-core = { group = "com.accuterra", name = "accuterra-android-sdk-core", version.ref = "accuterra"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -3,6 +3,7 @@
     <string name="initialize_sdk">Initialize SDK</string>
     <string name="add_trails">Add Trails</string>
     <string name="remove_trails">Remove Trails</string>
+    <string name="set_accuterra_style">Set AccuTerra Style</string>
     <string name="ok">OK</string>
     <string name="first_sdk_initialization_body">First SDK Initialization can take a while. Check log for progress.</string>
     <string name="first_sdk_initialization_title">First SDK Initialization</string>
